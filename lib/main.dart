@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 import 'app/app.router.dart';
-import 'ui/view/start_dm/start_dm_view.dart';
 
 
 void main() {

@@ -9,8 +9,8 @@
 import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked/stacked_annotations.dart';
+import 'package:startdmscreen/ui/start_dm/start_dm_view.dart';
 
-import '../ui/view/start_dm/start_dm_view.dart';
 
 class Routes {
   static const String startDmView = '/';
