@@ -22,20 +22,21 @@ environment:
 
 dependencies:
   analyzer: ^2.3.0
+  intl: ^0.17.0
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
   flutter_chips_input: ^1.10.0
+  font_awesome_flutter: ^9.1.0
   google_fonts: ^2.1.0
-  stacked: 
-  stacked_services: 
+  stacked: null
+  stacked_services: null
 
 dev_dependencies:
-  stacked_generator: null
   build_runner: null
   flutter_test:
     sdk: flutter
-  
+  stacked_generator: null
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

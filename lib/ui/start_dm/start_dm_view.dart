@@ -3,7 +3,7 @@ import 'package:flutter_chips_input/flutter_chips_input.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:stacked/stacked.dart';
 import 'package:startdmscreen/widgets/custom_chip_input.dart';
-
+import 'icons/zap_icon.dart';
 import 'start_dm_viewmodel.dart';
 
 class StartDmView extends StatefulWidget {
@@ -15,6 +15,8 @@ class StartDmView extends StatefulWidget {
 
 class _StartDmViewState extends State<StartDmView> {
   final _chipKey = GlobalKey<ChipsInputState>();
+  final _scrollController = ScrollController();
+ 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<StartDmViewModel>.reactive(
@@ -34,13 +36,164 @@ class _StartDmViewState extends State<StartDmView> {
               icon: Icon(Icons.arrow_back_ios, size: 20, color: Colors.black),
               onPressed: () => Navigator.of(context).pop()),
         ),
-        body: Column(
-          children: <Widget>[
-            CustomChipInput(chipKey: _chipKey, mockResults: model.userResults),
-            Divider(color: Colors.black, thickness: 0.1)
-          ],
+        body: Container(
+          height: double.maxFinite,
+          child: Stack(
+            children: [
+              Positioned(
+                  child: Column(
+                children: [
+                  CustomChipInput(
+                      chipKey: _chipKey, mockResults: model.combinedList),
+                  // model.userResults, model.channelResults//
+                  Divider(color: Colors.black, thickness: 0.1),
+                ],
+              )),
+              Positioned(
+                  child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Material(
+                  color: Colors.white,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Divider(height: 0, color: Color(0xFF999999)),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Container(
+                              height: 56,
+                              margin: EdgeInsets.only(left: 13.0),
+                              alignment: Alignment.centerLeft,
+                              child: FocusScope(
+                                child: Focus(
+                                  onFocusChange: (focus) {
+                                    if (focus) {
+                                      model.onTapMessageField();
+                                    } else {
+                                      model.onUnfocusMessageField();
+                                    }
+                                  },
+                                  child: TextField(
+                                    controller: model.messageController,
+                                    expands: true,
+                                    maxLines: null,
+                                    textAlignVertical: TextAlignVertical.center,
+                                    decoration: InputDecoration.collapsed(
+                                        hintText: 'Start a new message',
+                                        hintStyle: TextStyle(
+                                            color: Color(0xFFBEBEBE),
+                                            fontSize: 14.0,
+                                            fontWeight: FontWeight.w400)),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Visibility(
+                            visible: model.hasClickedMessageField,
+                            child: Row(
+                              children: [
+                                IconButton(
+                                  icon: Icon(
+                                    Icons.camera_alt_outlined,
+                                    color: Color(0xFF424141),
+                                  ),
+                                  onPressed: () {},
+                                ),
+                                IconButton(
+                                  icon: Icon(
+                                    Icons.attach_file_outlined,
+                                    color: Color(0xFF424141),
+                                  ),
+                                  onPressed: () {},
+                                )
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                      Visibility(
+                          visible: model.hasClickedMessageField,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Row(
+                                children: [
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(
+                                        AppIcons.shapezap,
+                                        color: Color(0xFF424141),
+                                      )),
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(
+                                        Icons.alternate_email_outlined,
+                                        color: Color(0xFF424141),
+                                      )),
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(
+                                        Icons.tag_faces_sharp,
+                                        color: Color(0xFF424141),
+                                      )),
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(
+                                        Icons.camera_alt_outlined,
+                                        color: Color(0xFF424141),
+                                      )),
+                                  IconButton(
+                                      onPressed: () {},
+                                      icon: Icon(
+                                        Icons.attach_file_outlined,
+                                        color: Color(0xFF424141),
+                                      )),
+                                ],
+                              ),
+                              IconButton(
+                                  onPressed: () {
+                                    // model.sendMessage();
+                                    // FocusScope.of(context).requestFocus(FocusNode());
+                                    // _scrollController.jumpTo(
+                                    //     _scrollController.position.maxScrollExtent);
+                                    // duration: Duration(milliseconds: 500),
+                                    // curve: Curves.fastOutSlowIn);
+                                  },
+                                  icon: Icon(
+                                    Icons.send,
+                                    color: Color(0xFFBEBEBE),
+                                  ))
+                            ],
+                          ))
+                    ],
+                  ),
+                ),
+              )),
+            ],
+          ),
         ),
       ),
     );
   }
 }
+
+// Positioned(
+//   top: MediaQuery.of(context).size.height,
+//   child: Align(
+//     alignment: Alignment.bottomCenter,
+//     child: Padding(
+//       padding: EdgeInsets.only(bottom: 10.0),
+//       child: TextField(
+//         decoration: InputDecoration(
+//           border: OutlineInputBorder(
+//               borderSide: BorderSide(
+//                 color: Colors.black,
+//               ),
+//               borderRadius: BorderRadius.zero),
+//         ),
+//       ), //Your widget here,
+//     ),
+//   ),
+// )

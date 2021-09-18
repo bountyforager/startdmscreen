@@ -3,7 +3,6 @@ import 'package:flutter_chips_input/flutter_chips_input.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:startdmscreen/models/start_dm_models.dart';
 
-
 import 'custom_input_chip.dart';
 
 class CustomChipInput extends StatelessWidget {
@@ -15,7 +14,7 @@ class CustomChipInput extends StatelessWidget {
         super(key: key);
 
   final GlobalKey<ChipsInputState> _chipKey;
-  final List<UserModel> mockResults;
+  final List<Object> mockResults;
   final horizontalSpace = SizedBox(width: 12);
 
   @override
@@ -30,7 +29,8 @@ class CustomChipInput extends StatelessWidget {
       decoration: InputDecoration(
           contentPadding: EdgeInsets.only(left: 10),
           border: InputBorder.none,
-          hintText: 'Search',
+          prefix: Text('Hello'),
+          hintText: 'Type the name of a channel or person',
           hintStyle: GoogleFonts.lato(
             fontWeight: FontWeight.w400,
             fontSize: 16,
@@ -62,9 +62,7 @@ class CustomChipInput extends StatelessWidget {
             name: profile.displayName!);
       },
       suggestionBuilder: (context, state, UserModel profile) {
-        return
-        
-         CheckboxListTile(
+        return CheckboxListTile(
             key: ObjectKey(profile),
             value: false,
             onChanged: (bool? value) {
@@ -107,7 +105,6 @@ class CustomChipInput extends StatelessWidget {
                     color: Colors.black,
                   ))
             ]));
-            
       },
     );
   }

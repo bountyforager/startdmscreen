@@ -1,8 +1,19 @@
+import 'package:flutter/material.dart';
 import 'package:stacked/stacked.dart';
 import 'package:startdmscreen/models/start_dm_models.dart';
-
+import 'package:startdmscreen/ui/start_dm/dummy_data/models/Message.dart';
+import 'package:startdmscreen/ui/start_dm/dummy_data/models/User.dart';
 
 class StartDmViewModel extends BaseViewModel {
+  bool _hasClickedMessageField = false;
+  bool get hasClickedMessageField => _hasClickedMessageField;
+
+  TextEditingController messageController = TextEditingController();
+
+  List<Message> chatMessages = List.empty(growable: true);
+  User receiver = User("John Doe", "JohnDoe");
+  User sender = User("Jane Doe", "JaneDoe");
+
   List<UserModel> _userResults = [
     UserModel(
       fullName: 'Adegoke Abram',
@@ -95,6 +106,20 @@ class StartDmViewModel extends BaseViewModel {
   List<UserModel> get userResults {
     return [..._userResults];
   }
+
+  List<ChannelModel> _channelResults = [];
+
+  List<ChannelModel> get channelResults {
+    return [..._channelResults];
+  }
+
+ var combinedList = [
+    ...StartDmViewModel().userResults,
+    ...StartDmViewModel().channelResults
+  ];
+
+  
+
 //  runFilter(String query) {
 //     final List<UserModel> mockResults = [];
 //     if (query.length != 0) {
@@ -107,7 +132,42 @@ class StartDmViewModel extends BaseViewModel {
 //             .toLowerCase()
 //             .indexOf(lowercaseQuery)
 //             .compareTo(b.fullName!.toLowerCase().indexOf(lowercaseQuery)));
-//     } 
+//     }
 //       return mockResults;
 //   }
+
+  onTapMessageField() {
+    _hasClickedMessageField = true;
+    notifyListeners();
+  }
+
+  onUnfocusMessageField() {
+    _hasClickedMessageField = false;
+    notifyListeners();
+  }
+
+  // void sendMessage() {
+  //   String message = messageController.text;
+  //   if (message.trim().isNotEmpty) {
+  //     chatMessages.add(Message(
+  //         id: chatMessages.length,
+  //         sender: sender,
+  //         message: message,
+  //         time: DateTime.now()));
+  //     messageController.clear();
+  //     notifyListeners();
+  //     sendResponse();
+  //   }
+  // }
+
+  // void sendResponse() async {
+  //   await Future.delayed(Duration(seconds: 2));
+  //   var randomNum = Random().nextInt(Message.responses().length);
+  //   chatMessages.add(Message(
+  //       id: chatMessages.length,
+  //       sender: receiver,
+  //       message: Message.responses()[randomNum],
+  //       time: DateTime.now()));
+  //   notifyListeners();
+  // }
 }
