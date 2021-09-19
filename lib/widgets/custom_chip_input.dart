@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chips_input/flutter_chips_input.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:startdmscreen/models/start_dm_models.dart';
+import 'package:startdmscreen/ui/start_dm/start_dm_viewmodel.dart';
 
 import 'custom_input_chip.dart';
 
@@ -40,7 +41,7 @@ class CustomChipInput extends StatelessWidget {
         if (query.length != 0) {
           var lowercaseQuery = query.toLowerCase();
           return mockResults.where((profile) {
-            return profile.fullName!
+            return profile
                     .toLowerCase()
                     .contains(query.toLowerCase()) ||
                 profile.displayName!
@@ -55,13 +56,13 @@ class CustomChipInput extends StatelessWidget {
         return mockResults;
       },
       onChanged: (data) {},
-      chipBuilder: (context, state, UserModel profile) {
+      chipBuilder: (context, state, Object profile) {
         return CustomInputChip(
             key: ObjectKey(profile),
             imageUrl: profile.imageUrl!,
             name: profile.displayName!);
       },
-      suggestionBuilder: (context, state, UserModel profile) {
+      suggestionBuilder: (context, state, Object profile) {
         return CheckboxListTile(
             key: ObjectKey(profile),
             value: false,

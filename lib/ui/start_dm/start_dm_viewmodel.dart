@@ -113,7 +113,7 @@ class StartDmViewModel extends BaseViewModel {
     return [..._channelResults];
   }
 
- var combinedList = [
+var combinedList = [
     ...StartDmViewModel().userResults,
     ...StartDmViewModel().channelResults
   ];
